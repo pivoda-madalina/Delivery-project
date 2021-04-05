@@ -1,0 +1,19 @@
+{% extends 'store/layout.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+      <p>Hi, {{ user.username }}!</p>
+        <button><a href="{% url 'logout' %}">Log Out</a></button>
+        <button><a href="{% url 'change_password' %}">Change password</a></button>
+
+    {% else %}
+      <p>You are not logged in</p>
+        <button><a href="{% url 'login' %}">Log In</a></button>
+        <button><a href="{% url 'signup' %}">Sign Up</a></button>
+        <button><a href="{% url 'reset_password' %}">Reset Password</a></button>
+    {% endif %}
+
+{% endblock %}
+

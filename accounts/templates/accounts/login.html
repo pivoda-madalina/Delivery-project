@@ -1,5 +1,12 @@
-<form method="post" action="">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Login">
-</form>
+{% extends 'accounts/../base.html' %}
+
+{% block title %}Login{% endblock %}
+
+
+{% block body %}
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Login">
+    </form>
+{% endblock %}
