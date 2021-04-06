@@ -4,7 +4,16 @@
 
 {% block body %}
     {% if user.is_authenticated %}
-      <p>Hi, {{ user.username }}!</p>
+    <h1> Restaurants </h1>
+      {% for restaurant in restaurants %}
+        <ul>
+            <li><a href="{% url 'store:detail_restaurant' restaurant.id %}">{{ restaurant.name }}</a>
+            <span><img src="{{ restaurant.picture }}" alt="" width="50px"></span>
+            </li>
+        </ul>
+        {% endfor %}
+
+        <button><a href="{% url 'store:add_restaurant' %}">Add restaurant</a></button>
         <button><a href="{% url 'logout' %}">Log Out</a></button>
         <button><a href="{% url 'change_password' %}">Change password</a></button>
 

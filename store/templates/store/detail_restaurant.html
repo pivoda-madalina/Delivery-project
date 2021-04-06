@@ -1,0 +1,30 @@
+{% extends 'store/layout.html' %}
+
+{% block body %}
+    <h1>{{ restaurant.name }}</h1>
+
+    <ul>
+    {% for c in restaurant.categories.all %}
+       <li><a href="{% url 'store:product_list' restaurant.id c.id %}">{{ c.name }}</a></li>
+    {% endfor %}
+    </ul>
+
+
+    <a href="{% url 'store:update_restaurant' restaurant.id %}"><button>Edit</button></a>
+    <a href="{% url 'store:delete_restaurant' restaurant.id %}"><button>Delete</button></a>
+
+    <form action="{% url 'store:add_category' restaurant.id %}" method="post">
+    {% csrf_token %}
+    <label for="categories">Choose a category:</label>
+
+    <select name="category_id" id="categories">
+        {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.name }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Add category">
+
+
+    </form>
+
+{% endblock %}
