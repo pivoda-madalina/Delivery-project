@@ -183,7 +183,7 @@ class DeleteProduct(DeleteView):
 def search_restaurant(request):
     if request.method == 'POST':
         searched = request.POST['searched']
-        restaurants = Restaurant.objects.filter(name__contains=searched)
+        restaurants = Restaurant.objects.filter(name__icontains=searched)
         return render(request, 'store/search_restaurant.html', {'searched': searched,
                                                                 'restaurants': restaurants})
     else:
