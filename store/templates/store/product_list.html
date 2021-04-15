@@ -1,22 +1,91 @@
 {% extends 'store/layout.html' %}
+{% load static %}
 
-{% block body%}
-    {% for product in products %}
-        <ul>
-            <li>
-                <div><h2>{{ product.name }}</h2></div>
-                <h4>{{ product.picture }}</h4>
-                <h4>{{ product.description }}</h4>
-                <h4>Price: {{ product.price }} lei</h4>
+{% block head %}
+    <link rel="stylesheet" href="{% static 'store/style.css' %}">
+{% endblock %}
 
-                <a href="{% url 'store:update_product' restaurant_id category_id product.id %}"><button>Edit</button></a>
-                <a href="{% url 'store:delete_product' restaurant_id category_id product.id %}"><button>Delete</button></a>
-            </li>
+{% block body %}
+    <br>
+    <h1 class="h1">Products</h1>
+    {% if user.user_type == 'Restaurant' %}
+        <a href="{% url 'store:add_product' restaurant_id category_id %}" style="padding-left: 10px;"><button
+                class="btn btn-outline-secondary">Add product</button></a>
+    {% endif %}
+    <br>
 
-        </ul>
-    {% endfor %}
 
-    <a href="{% url 'store:add_product' restaurant_id category_id %}"><button>Add product</button></a>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for product in products %}
+                <div class="col">
+                    <div class="card">
+                    {% if user.user_type == 'Restaurant' %}
+                        <figure class="text-end">
+                            <blockquote class="blockquote">
+                                <a href="{% url 'store:delete_product' restaurant_id category_id product.id %}">
+                                    <button class="btn btn-primary">&times;</button>
+                                </a>
+                            </blockquote>
+                        </figure>
+                    {% endif %}
+                        <img src="{{ product.picture }}" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text">{{ product.description }}</p>
+                            <h4 class="card-title">Price: {{ product.price }} lei</h4>
+                            {% if user.user_type == 'Restaurant' %}
+                                <figure class="text-end">
+                                    <blockquote class="blockquote">
+                                    <a href="{% url 'store:update_product' restaurant_id category_id product.id %}">
+                                        <button>Edit</button>
+                                    </a>
+                                    </blockquote>
+                                </figure>
+
+                            {% endif %}
+                            <a href="{% url 'order:order_view' restaurant_id category_id product.id %}">
+                                <button id="create-order" class="btn btn-primary" type="button" name="button">Add to
+                                    cart
+                                </button>
+                            </a>
+                            <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content"></div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    $(document).ready(function () {
+
+                        $("#create-order").modalForm({
+                            formURL: "{% url 'order:order_view' restaurant_id category_id product.id %}"
+                        });
+
+                    });
+                </script>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    {#        <ul>#}
+    {#            <li>#}
+    {#                <div><h2>{{ product.name }}</h2></div>#}
+    {#                <span><img src="{{ product.picture }}" alt="" width="150px"></span>#}
+    {#                <h4>{{ product.description }}</h4>#}
+    {#                <h4>Price: {{ product.price }} lei</h4>#}
+    {##}
+    {#                <a href="{% url 'store:update_product' restaurant_id category_id product.id %}"><button>Edit</button></a>#}
+    {#                <a href="{% url 'store:delete_product' restaurant_id category_id product.id %}"><button>Delete</button></a>#}
+    {#            </li>#}
+    {##}
+    {#        </ul>#}
 
 
 {% endblock %}

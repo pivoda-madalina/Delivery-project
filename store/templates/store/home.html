@@ -1,28 +1,36 @@
 {% extends 'store/layout.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'store/style.css' %}">
+{% endblock %}
 
 {% block title %}Home{% endblock %}
 
 {% block body %}
-    {% if user.is_authenticated %}
-    <h1> Restaurants </h1>
-      {% for restaurant in restaurants %}
-        <ul>
-            <li><a href="{% url 'store:detail_restaurant' restaurant.id %}">{{ restaurant.name }}</a>
-            <span><img src="{{ restaurant.picture }}" alt="" width="50px"></span>
-            </li>
-        </ul>
-        {% endfor %}
-
-        <button><a href="{% url 'store:add_restaurant' %}">Add restaurant</a></button>
-        <button><a href="{% url 'logout' %}">Log Out</a></button>
-        <button><a href="{% url 'change_password' %}">Change password</a></button>
-
-    {% else %}
-      <p>You are not logged in</p>
-        <button><a href="{% url 'login' %}">Log In</a></button>
-        <button><a href="{% url 'signup' %}">Sign Up</a></button>
-        <button><a href="{% url 'reset_password' %}">Reset Password</a></button>
-    {% endif %}
-
+    <br><h1 class="h1"> Restaurants </h1><br>
+    <form method="get" style="text-align: center">
+        {{ my_filter.form }}
+        <button type="submit">Search</button>
+    </form><br>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for restaurant in restaurants %}
+              <div class="col">
+                <div class="card">
+                  <img src="{{ restaurant.picture }}" class="card-img-top" alt="">
+                  <div class="card-body" style="text-align: center">
+                    <a class="card-title" href="{% url 'store:detail_restaurant' restaurant.id %}">{{ restaurant.name }}</a>
+                    <p class="card-text">
+                        {% for c in restaurant.categories.all %}
+                            <span>* {{ c }}</span>
+                        {% endfor %}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+        </div>
+    </div>
+    <br>
 {% endblock %}
-

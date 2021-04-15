@@ -1,0 +1,9 @@
+{% extends 'store/edit_layout.html' %}
+
+
+{% block form %}
+
+    <p>Are you sure to delete order {{ order.product.name }}</p>
+    <input type="submit" value="Delete">
+
+{% endblock %}

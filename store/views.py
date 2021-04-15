@@ -4,9 +4,20 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .models import Restaurant, Category, Product
 from django.urls import reverse_lazy, reverse
 from .forms import ProductForm
+from datetime import datetime
+from .filters import RestaurantFilter
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.decorators import permission_required
+
+
+class IndexView(ListView):
+    model = Restaurant
+    template_name = 'store/index.html'
+    context_object_name = 'restaurants'
+
+    def get_queryset(self):
+        return Restaurant.objects.all()
 
 
 class RestaurantList(ListView):
@@ -15,7 +26,16 @@ class RestaurantList(ListView):
     context_object_name = 'restaurants'
 
     def get_queryset(self):
-        return Restaurant.objects.all()
+        current_time = datetime.now().time()
+        restaurants = Restaurant.objects.filter(opening_from__lte=current_time, opening_to__gt=current_time)
+        return restaurants
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(RestaurantList, self).get_context_data(**kwargs)
+        my_filter = RestaurantFilter(self.request.GET, context.get('restaurants'))
+        context['restaurants'] = my_filter.qs
+        context['my_filter'] = my_filter
+        return context
 
 
 class DetailRestaurant(DetailView):
@@ -76,7 +96,7 @@ class AddCategory(CreateView):
     fields = '__all__'
 
     def get_success_url(self):
-        return reverse('store:detail_restaurant', args=(self.object.id,))
+        return reverse('store:detail_restaurant', args=(self.kwargs.get('restaurant_id'),))
 
 
 class ProductList(ListView):
@@ -123,13 +143,14 @@ class AddProduct(CreateView):
     fields = '__all__'
 
     def get_success_url(self):
-        return reverse('store:product_list', args=(self.object.id,))
+        return reverse('store:product_list', args=(self.kwargs.get('restaurant_id'),
+                                                   self.kwargs.get('category_id')))
 
 
 class UpdateProduct(UpdateView):
     model = Product
     template_name = 'store/update_product.html'
-    fields = ('name', 'description', 'price')
+    fields = ('name', 'description', 'price', 'picture')
 
     def get_success_url(self):
         return reverse('store:product_list', args=(self.kwargs.get('restaurant_id'),
@@ -144,6 +165,7 @@ def update_product(request, restaurant_id, category_id, product_id):
         product.price = request.POST.get('price')
         product.name = request.POST.get('name')
         product.description = request.POST.get('description')
+        product.picture = request.POST.get('picture')
         product.save()
         return HttpResponseRedirect(reverse('store:product_list', args=(restaurant_id, category_id)))
 
@@ -156,3 +178,13 @@ class DeleteProduct(DeleteView):
     def get_success_url(self):
         return reverse('store:product_list', args=(self.kwargs.get('restaurant_id'),
                                                    self.kwargs.get('category_id')))
+
+
+def search_restaurant(request):
+    if request.method == 'POST':
+        searched = request.POST['searched']
+        restaurants = Restaurant.objects.filter(name__contains=searched)
+        return render(request, 'store/search_restaurant.html', {'searched': searched,
+                                                                'restaurants': restaurants})
+    else:
+        return render(request, 'store/search_restaurant.html', {})

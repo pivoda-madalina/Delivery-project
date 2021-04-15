@@ -1,0 +1,51 @@
+{% extends 'store/layout.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'store/style.css' %}">
+{% endblock %}
+
+{% block title %}Order History{% endblock %}
+
+{% block body %}
+    <h1 class="h1">History:</h1>
+    {% for placed_order in orders %}
+
+            <div class="container">
+                <div class="card text-dark bg-light mb-3">
+                    <div class="card-header">
+                        <dl class="row">
+                             <dt class="col-sm-3">Order: {{ placed_order.id }}</dt>
+                              <dd class="col-sm-9">
+                                <dl class="row">
+                                  <dt class="col-sm-4">Status: {{ placed_order.get_status_display }}</dt>
+                                  <dd class="col-sm-8">Date: {{ placed_order.created_on }}</dd>
+                                </dl>
+                              </dd>
+                        </dl>
+                        {% if user.user_type == 'Delivery' %}
+                            <figure class="text-end">
+                                <blockquote class="blockquote">
+                                    {% if placed_order.status == 1 %}
+                                        <a href="{% url 'order:take_order' placed_order.id %}"><button>Take order</button></a>
+                                    {% else %}
+                                        <a href="{% url 'order:take_order' placed_order.id %}"><button>Delivered</button></a>
+                                    {% endif %}
+                                </blockquote>
+                            </figure>
+                        {% endif %}
+
+                    </div>
+                    <div class="card-body">
+                        {% for order in placed_order.orders.all %}
+                            <dl class="row">
+                              <dt class="col-sm-3">{{ order.product.name }}</dt>
+                              <dd class="col-sm-9">Price: {{ order.product.price }}</dd>
+                            </dl>
+                         {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+    {% endfor %}
+{% endblock %}

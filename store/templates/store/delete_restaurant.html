@@ -1,8 +1,16 @@
 {% extends 'store/edit_layout.html' %}
+{% load static %}
+
+{% block head %}
+        <link rel="stylesheet" href="{% static 'store/style.css' %}">
+{% endblock %}
+
 
 {% block form %}
 
-    <p>Are you sure to delete restaurant{{ restaurant.name }}</p>
-    <input type="submit" value="Delete">
+    <p class="p"><br>
+        Are you sure to delete restaurant {{ restaurant.name }}?<br>
+        <input type="submit" value="Delete">
+    </p>
 
 {% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'store/layout.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'store/style.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="hero-image">
+        <div class="hero-text">
+            <h1 style="font-size:50px">Deliveryn</h1>
+            <h5 style="font-family: 'Segoe Script'">Better together</h5>
+        </div>
+    </div>
+
+
+    <div class="container-fluid bg-3 text-center">
+        <br>
+        <h3>How does it work?</h3><br>
+        <div class="row">
+            <div class="col-sm-4">
+                <p>Add your location.</p>
+                <img src="https://icons-for-free.com/iconfiles/png/512/ins+facebook+fb+location+icon-1320166640899991241.png"
+                     alt="Image" width="350" height="300">
+            </div>
+            <div class="col-sm-4">
+                <p>Choose your restaurant and food</p>
+                <img src="https://library.kissclipart.com/20181227/kzq/kissclipart-clean-after-yourself-poster-clipart-self-cleaning-baf2a775189c1934.png"
+                     alt="Image" width="350" height="300">
+            </div>
+            <div class="col-sm-4">
+                <p>Pay, and you get your food at your door.</p>
+                <img src="https://media.istockphoto.com/vectors/food-delivery-bike-icon-logo-vector-id1197080864?b=1&k=6&m=1197080864&s=612x612&w=0&h=dXB_PJc_y-sUIfpnWYaX55gUQXESKMVX1BtNQt7HXOw="
+                     alt="Image" width="350" height="300">
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

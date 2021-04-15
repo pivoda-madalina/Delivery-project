@@ -1,12 +1,23 @@
 {% extends 'accounts/../base.html' %}
+{% load static %}
+{% load crispy_forms_filters %}
+
 
 {% block title %}Login{% endblock %}
-
-
+{% block head %}
+        <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
+{% endblock %}
 {% block body %}
-    <form method="post" action="">
+    <h2 class="h2">Log in</h2>
+    {% load crispy_forms_tags %}
+
+    <form method="post" action="" class="form">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form|crispy }}
         <input type="submit" value="Login">
+    <button>
+             <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
+     </button>
     </form>
+
 {% endblock %}

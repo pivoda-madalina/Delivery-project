@@ -1,8 +1,15 @@
 {% extends 'store/edit_layout.html' %}
+{% load static %}
+{% load crispy_forms_filters %}
+
+
+{% block head %}
+        <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
+{% endblock %}
 
 {% block form %}
-
-    {{ form.as_p }}
+    {% load crispy_forms_tags %}
+    {{ form|crispy }}<br>
     <input type="submit" value="Add restaurant">
 
 {% endblock %}

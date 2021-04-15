@@ -1,0 +1,58 @@
+{% extends 'store/layout.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'order/bootstrap.css' %}">
+{% endblock %}
+
+{% block body%}
+<div class="cart">
+<br>
+    <h1>Cart</h1>
+<br>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for order in cart.orders.all %}
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+          <figure class="text-end">
+            <blockquote class="blockquote">
+                <a href="{% url 'order:delete_order' order.id %}">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  &times;
+                </button>
+                </a>
+            </blockquote>
+          </figure>
+            <h5 class="card-title">{{ order.product.name }}</h5>
+            <p class="card-text">{{ order.product.description }}</p>
+            <p class="card-text"><span class="badge bg-primary rounded-pill">Quantity: {{ order.quantity }} </span></p>
+            <h5 class="card-title">Price: {{ order.get_cost }} lei</h5>
+          <figure class="text-end">
+            <blockquote class="blockquote">
+                <a href="{% url 'order:update_order' order.id %}"><button>Edit</button></a>
+            </blockquote>
+          </figure>
+
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+
+    <h2>Total price:
+    {{ cart.get_total_cost }}
+    </h2>
+    {% if error_message %}
+         <p><strong>{{ error_message }}</strong></p>
+    {% endif %}
+    {% if user.is_authenticated %}
+{#        {% if cart.orders.count %}#}
+            <a href="{% url 'order:submit_order' %}"><button>Submit Order</button></a>
+{#        {% endif %}#}
+    {% endif %}
+
+</div>
+
+{% endblock %}

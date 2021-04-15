@@ -1,0 +1,38 @@
+{% extends 'store/layout.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'store/style.css' %}">
+{% endblock %}
+
+{% block body %}
+    <br>
+    {% if searched %}
+        <h1 class="h1">Search results for: {{ searched }}</h1>
+        {% if restaurants %}
+        {% for restaurant in restaurants %}
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="coloana">
+                    <div class="card">
+                      <img src="{{ restaurant.picture }}" class="card-img-top" alt="">
+                      <div class="card-body" style="text-align: center">
+                        <a class="card-title" href="{% url 'store:detail_restaurant' restaurant.id %}">{{ restaurant.name }}</a>
+                        <p class="card-text">
+                            {% for c in restaurant.categories.all %}
+                                <span>* {{ c }}</span>
+                            {% endfor %}
+                        </p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+        {% else %}
+            <p class="p">No results.</p>
+        {% endif %}
+    {% else %}
+        <h1 class="h1">You searched for ...</h1>
+    {% endif %}
+
+{% endblock %}

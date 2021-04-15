@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,7 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'store.apps.ShopConfig',
+    'order.apps.OrderConfig',
+    'django_filters',
+    'bootstrap_modal_forms',
+    'crispy_forms',
+    'social_django',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -80,6 +88,27 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#
+#     'default': {
+#
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#
+#         'NAME': 'dj9omh3h1umpe',
+#
+#         'USER': 'bvtpgaejrmqnha',
+#
+#         'PASSWORD': '175a4cafab5c0454a66b3753484452b75abd0a885bba317853f31fd0b61e2628',
+#
+#         'HOST': 'ec2-52-50-171-4.eu-west-1.compute.amazonaws.com',
+#
+#         'PORT': 5432,
+#
+#     }
+#
+# }
+
+
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -119,8 +148,8 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 LOGIN_URL = 'accounts/login/'
-LOGIN_REDIRECT_URL = '/store/'
-LOGOUT_REDIRECT_URL = '/store/'
+LOGIN_REDIRECT_URL = '/store/index'
+LOGOUT_REDIRECT_URL = '/store/index'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = "smtp.gmail.com"
@@ -128,3 +157,11 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('email_user')
 EMAIL_HOST_PASSWORD = os.environ.get('email_password')
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET')
