@@ -85,7 +85,6 @@ class OrderHistoryView(ListView):
 
 def take_order(request, placed_order_id):
     submitted_order = PlacedOrder.objects.get(pk=placed_order_id)
-    print(submitted_order.status)
     if submitted_order.status == 1:
         submitted_order.status = 2
     elif submitted_order.status == 2:

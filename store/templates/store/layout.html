@@ -36,13 +36,14 @@
                             Options
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Terms and conditions</a></li>
-                            <li><a class="dropdown-item" href="#">About us</a></li>
+                            <li><a class="dropdown-item" href="#">Account information</a></li>
+                            <li><a class="dropdown-item" href="{% url 'order:order_history' %}">My orders</a></li>
+                            <li><a class="dropdown-item" href="{% url 'change_password' %}">Change password</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="{% url 'order:order_history' %}">My orders</a></li>
-                            <li><a class="dropdown-item" href="{% url 'change_password' %}">Change password</a></li>
+                            <li><a class="dropdown-item" href="{% url 'store:about' %}">About us</a></li>
+                            <li><a class="dropdown-item" href="#">Help</a></li>
                         </ul>
                     </li>
 
@@ -106,7 +107,7 @@
 {% endif %}
 
 <div class="fixed-bottom">
-    <footer class="container-fluid bg-4 text-center" style="background-color: #323232; color: #ffffff;">
+    <footer class="container-fluid bg-4 text-center" style="background-color: #323232; color: #ffffff; font-size: larger">
       <span style="font-family: 'Mongolian Baiti'">
           <img src="https://www.freeiconspng.com/thumbs/letter-d-icon-png/letter-d-icon-png-9.png" width="30"
                  height="30" class="d-inline-block align-top" alt="">

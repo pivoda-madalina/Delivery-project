@@ -188,3 +188,10 @@ def search_restaurant(request):
                                                                 'restaurants': restaurants})
     else:
         return render(request, 'store/search_restaurant.html', {})
+
+
+class AboutView(ListView):
+    model = Restaurant
+    template_name = 'store/about_us.html'
+    context_object_name = 'restaurants'
+    queryset = Restaurant.objects.all()
