@@ -12,13 +12,13 @@
 
 {% block body %}
     <br>
-    <h2 class="h2">Edit Profile</h2>
+    <h2 class="h2">Account Information</h2>
     {% load crispy_forms_tags %}
 
     <form action="" method="post" class="form">
         {% csrf_token %}
         {{ form|crispy }}
-        <input type="submit" value="Update Profile">
+        <input type="submit" value="Save changes">
         <a href="{% url 'store:index' %}"><input type="submit" value="Close"></a>
 
     </form>

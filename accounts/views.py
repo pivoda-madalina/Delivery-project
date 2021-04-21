@@ -1,7 +1,7 @@
 from django.contrib.auth.views import LoginView, PasswordChangeView
-from django.views.generic import CreateView, UpdateView
+from django.shortcuts import get_object_or_404
+from django.views.generic import CreateView, UpdateView, DetailView
 from .forms import SignUpForm, EditProfileForm
-from django.contrib.auth.forms import UserChangeForm
 
 
 class LoginCustomView(LoginView):

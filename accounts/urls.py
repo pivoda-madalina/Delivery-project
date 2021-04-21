@@ -3,7 +3,6 @@ from django.contrib.auth.views import LogoutView, PasswordResetView, PasswordRes
     PasswordResetCompleteView
 from .views import LoginCustomView, ChangePassword, SignUp, EditProfile
 
-
 urlpatterns = [
     path('login/', LoginCustomView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
