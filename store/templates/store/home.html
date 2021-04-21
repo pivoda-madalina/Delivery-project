@@ -16,21 +16,24 @@
     <div class="container">
         <div class="row row-cols-1 row-cols-md-3 g-4">
             {% for restaurant in restaurants %}
-              <div class="col">
-                <a class="card-title" href="{% url 'store:detail_restaurant' restaurant.id %}"><div class="card">
-                  <img src="{{ restaurant.picture }}" class="card-img-top" alt="" style="height: 200px">
-                  <div class="card-body" style="text-align: center">
-                    <a class="card-title" href="{% url 'store:detail_restaurant' restaurant.id %}">{{ restaurant.name }}</a>
-                    <p class="card-text">
-                        {% for c in restaurant.categories.all %}
-                            <span>* {{ c }}</span>
-                        {% endfor %}
-                    </p>
-                  </div>
-                </div></a>
-              </div>
+                <div class="col">
+                    <a class="card-title" href="{% url 'store:detail_restaurant' restaurant.id %}">
+                        <div class="card">
+                            <img src="{{ restaurant.picture }}" class="card-img-top" alt="">
+                            <div class="card-body" style="text-align: center">
+                                <a class="card-title"
+                                   href="{% url 'store:detail_restaurant' restaurant.id %}">{{ restaurant.name }}</a>
+                                <p class="card-text">
+                                    {% for c in restaurant.categories.all %}
+                                        <span>* {{ c }}</span>
+                                    {% endfor %}
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             {% endfor %}
         </div>
     </div>
-<br><br>
+    <br><br>
 {% endblock %}

@@ -155,8 +155,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 LOGIN_URL = 'accounts/login/'
-LOGIN_REDIRECT_URL = '/store/index'
-LOGOUT_REDIRECT_URL = '/store/index'
+LOGIN_REDIRECT_URL = '/store/'
+LOGOUT_REDIRECT_URL = '/store/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = "smtp.gmail.com"

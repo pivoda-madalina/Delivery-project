@@ -8,84 +8,109 @@
 {% endblock %}
 
 {% block body %}
-{#    <script src="{% static 'assets/js/bootstrap.js' %}"></script>#}
-{#    <script src="{% static 'assets/js/jquery.js' %}"></script>#}
-{#    <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>#}
+    {#    <script src="{% static 'assets/js/bootstrap.js' %}"></script>#}
+    {#    <script src="{% static 'assets/js/jquery.js' %}"></script>#}
+    {#    <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>#}
     <!-- You can alternatively load the minified version -->
     <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
 
 
-{#{% block body %}#}
-{#<div class="modal" tabindex="-1">#}
-{#  <div class="modal-dialog">#}
-{#    <div class="modal-content">#}
-{#      <div class="modal-header">#}
-{#        <h5 class="modal-title">Order</h5>#}
-{#        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>#}
-{#      </div>#}
-{#      <div class="modal-body">#}
-{#        <h1>Your order:</h1>#}
-{#      </div>#}
-{#        <div class="modal-body">#}
-{#        <span>#}
-{#            <p>{{ product.name }}</p>#}
-{#            <blockquote class="blockquote-reverse"><p>{{ product.price }}</p></blockquote>#}
-{##}
-{#        </span>#}
-{##}
-{#      </div>#}
-{#      <div class="modal-footer">#}
-{#        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>#}
-{#        <button type="button" class="btn btn-primary">Add to cart</button>#}
-{#      </div>#}
-{#    </div>#}
-{#  </div>#}
-{#</div>#}
+    {#{% block body %}#}
+    {#<div class="modal" tabindex="-1">#}
+    {#  <div class="modal-dialog">#}
+    {#    <div class="modal-content">#}
+    {#      <div class="modal-header">#}
+    {#        <h5 class="modal-title">Order</h5>#}
+    {#        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>#}
+    {#      </div>#}
+    {#      <div class="modal-body">#}
+    {#        <h1>Your order:</h1>#}
+    {#      </div>#}
+    {#        <div class="modal-body">#}
+    {#        <span>#}
+    {#            <p>{{ product.name }}</p>#}
+    {#            <blockquote class="blockquote-reverse"><p>{{ product.price }}</p></blockquote>#}
+    {##}
+    {#        </span>#}
+    {##}
+    {#      </div>#}
+    {#      <div class="modal-footer">#}
+    {#        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>#}
+    {#        <button type="button" class="btn btn-primary">Add to cart</button>#}
+    {#      </div>#}
+    {#    </div>#}
+    {#  </div>#}
+    {#</div>#}
 
 
 
-{#    <h1>Your order:</h1>#}
-{#    <span>{{ product.name }}#}
-{##}
-{#    <blockquote class="blockquote-reverse"><p>{{ product.price }}</p></blockquote></span>#}
-{##}
-{#    <form method="post">#}
-{#        {% csrf_token %}#}
-{#        {{ form.as_p }}#}
-{#        <input type="submit" value="Add to cart">#}
-{#    </form>#}
+    {#    <h1>Your order:</h1>#}
+    {#    <span>{{ product.name }}#}
+    {##}
+    {#    <blockquote class="blockquote-reverse"><p>{{ product.price }}</p></blockquote></span>#}
+    {##}
+    {#    <form method="post">#}
+    {#        {% csrf_token %}#}
+    {#        {{ form.as_p }}#}
+    {#        <input type="submit" value="Add to cart">#}
+    {#    </form>#}
 
 
-<form method="post" action="">
-  {% csrf_token %}
+    <form method="post" action="">
+        {% csrf_token %}
 
- <div class="modal-header">
-    <h5 class="modal-title">Your order:</h5>
-    <a href="{% url 'store:product_list' product.restaurant.id product.category.id %}">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button></a>
-  </div>
+        <div class="modal-header">
+            <h5 class="modal-title">Your order:</h5>
+            <a href="{% url 'store:product_list' product.restaurant.id product.category.id %}">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </a>
+        </div>
 
-  <div class="modal-body">
-    {% for field in form %}
-        <h1>{{ product.name }}</h1>
-        <blockquote class="blockquote-reverse">{{ product.price }}</blockquote>
-      <div class="form-group{% if field.errors %} invalid{% endif %}">
-        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-        {{ field }}
-        {% for error in field.errors %}
-          <p class="help-block">{{ error }}</p>
-        {% endfor %}
-      </div>
-    {% endfor %}
-  </div>
+        <div class="modal-body">
+            {% for field in form %}
+                <div class="container">
+                <div class="card text-dark bg-light mb-3">
+                    <div class="card-header" style="background-color: lavender">
+                        <dl class="row">
+                            <dt class="col-sm-3">{{ product.name }}</dt>
+                            <dd class="col-sm-9">
+                                <dl class="row">
+                                    <dt class="col-sm-4">Price: {{ product.price }}</dt>
+                                    <dt class="col-sm-4">
+                                        <div class="form-group{% if field.errors %} invalid{% endif %}">
+                                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                            {{ field }}
+                                            {% for error in field.errors %}
+                                                <p class="help-block">{{ error }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    </dt>
+                                </dl>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
 
-  <div class="modal-footer">
-    <button type="submit" class="btn btn-primary">Add o cart</button>
-  </div>
+                {#        <h1>{{ product.name }}</h1>#}
+                {#        <p>Price: {{ product.price }}</p>#}
+                {#                <div class="form-group{% if field.errors %} invalid{% endif %}">#}
+                {#                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>#}
+                {#                    {{ field }}#}
+                {#                    {% for error in field.errors %}#}
+                {#                        <p class="help-block">{{ error }}</p>#}
+                {#                    {% endfor %}#}
+                {#                </div>#}
 
-</form>
+            {% endfor %}
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Add o cart</button>
+            </div>
+
+    </form>
 
 
 {% endblock %}

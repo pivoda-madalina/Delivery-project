@@ -11,13 +11,8 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.decorators import permission_required
 
 
-class IndexView(ListView):
-    model = Restaurant
-    template_name = 'store/index.html'
-    context_object_name = 'restaurants'
-
-    def get_queryset(self):
-        return Restaurant.objects.all()
+def index(request):
+    return render(request, 'store/index.html')
 
 
 class RestaurantList(ListView):
@@ -190,8 +185,5 @@ def search_restaurant(request):
         return render(request, 'store/search_restaurant.html', {})
 
 
-class AboutView(ListView):
-    model = Restaurant
-    template_name = 'store/about_us.html'
-    context_object_name = 'restaurants'
-    queryset = Restaurant.objects.all()
+def about_page(request):
+    return render(request, 'store/about_us.html')
