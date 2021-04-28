@@ -48,4 +48,11 @@
             </div>
 <br>
     {% endfor %}
+{% if orders.count != 0 %}
+    <div style="text-align: center">
+        <a href="{% url 'order:clear_history' %}"><button>Clear history</button></a>
+    </div>
+{% else %}
+    <p class="p">You don't have any orders...</p>
+{% endif %}
 {% endblock %}

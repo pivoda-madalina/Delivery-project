@@ -83,6 +83,15 @@ class OrderHistoryView(ListView):
     queryset = PlacedOrder.objects.all()
 
 
+def delete_view(request):
+    orders = PlacedOrder.objects.all()
+    if orders.count():
+        orders.delete()
+        context = {}
+        return render(request, "order/delete_history.html", context)
+    return HttpResponseRedirect(reverse('order:order_history'))
+
+
 def take_order(request, placed_order_id):
     submitted_order = PlacedOrder.objects.get(pk=placed_order_id)
     if submitted_order.status == 1:
