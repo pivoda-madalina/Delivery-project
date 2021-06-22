@@ -9,9 +9,3 @@ class OrderModelForm(BSModalModelForm):
         model = Order
         fields = ['quantity']
 
-
-#
-# class OrderForm(ModelForm):
-#     class Meta:
-#         model = Order
-#         fields = ('quantity',)

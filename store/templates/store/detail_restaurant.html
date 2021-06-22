@@ -1,7 +1,27 @@
 {% extends 'store/layout.html' %}
 
 {% block body %}
-    <h1>{{ restaurant.name }}</h1>
+    <div class="container-fluid bg-3 text-center">
+        <br>
+        <h3>{{ restaurant.name }}</h3><br>
+        <div class="row">
+            <div class="col-sm-7">
+                <p>Cost of delivery: {{ restaurant.cost_of_delivery }} lei</p>
+            </div>
+            <div class="col-sm-2">
+                <p>Rating: {{ restaurant.rating }}</p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{#    <div>#}
+{#        <span class="h1">{{ restaurant.name }}</span>#}
+{#        <span class="badge rounded-pill bg-secondary">Cost of delivery: {{ restaurant.cost_of_delivery }} lei</span>#}
+{#        <span class="badge rounded-pill bg-secondary">Rating: {{ restaurant.rating }}</span>#}
+{#    </div>#}
 
 
     {% for c in restaurant.categories.all %}
@@ -11,23 +31,27 @@
     {% endfor %}
 
 
-{% if user.user_type == 'Restaurant' %}
-<div style="text-align: center">
-    <a href="{% url 'store:update_restaurant' restaurant.id %}"><button>Edit</button></a>
-    <a href="{% url 'store:delete_restaurant' restaurant.id %}"><button>Delete</button></a>
+    {% if user.user_type == 'Restaurant' %}
+        <div style="text-align: center">
+            <a href="{% url 'store:update_restaurant' restaurant.id %}">
+                <button>Edit</button>
+            </a>
+            <a href="{% url 'store:delete_restaurant' restaurant.id %}">
+                <button>Delete</button>
+            </a>
 
-    <form action="{% url 'store:add_category' restaurant.id %}" method="post">
-        {% csrf_token %}
-        <label for="categories">Choose a category:</label>
+            <form action="{% url 'store:add_category' restaurant.id %}" method="post">
+                {% csrf_token %}
+                <label for="categories">Choose a category:</label>
 
-        <select name="category_id" id="categories">
-            {% for category in categories %}
-                <option value="{{ category.id }}">{{ category.name }}</option>
-            {% endfor %}
-        </select>
-        <input type="submit" value="Add category">
-    </form>
-</div>
-{% endif %}
+                <select name="category_id" id="categories">
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Add category">
+            </form>
+        </div>
+    {% endif %}
 
 {% endblock %}

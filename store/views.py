@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Restaurant, Category, Product
+from .models import Restaurant, Category, Product, Review
 from django.urls import reverse_lazy, reverse
 from .forms import ProductForm
 from datetime import datetime
@@ -187,3 +187,23 @@ def search_restaurant(request):
 
 def about_page(request):
     return render(request, 'store/about_us.html')
+
+
+class AddReview(CreateView):
+    model = Review
+    template_name = 'store/add_review.html'
+    fields = '__all__'
+    success_url = reverse_lazy('store:home')
+
+    # def get_success_url(self):
+    #     return reverse('store:home', args=(self.kwargs.get('restaurant_id'),))
+
+
+# def add_review(request, restaurant_id):
+#     restaurant = Restaurant.objects.get(pk=restaurant_id)
+#     if request.method == 'GET':
+#         return render(request, 'store/add_review.html', context={'review': ReviewForm})
+#     else:
+#         review = Review(rating=request.POST.get('rating'), restaurant=restaurant)
+#         review.save()
+#         return HttpResponseRedirect(reverse('store:detail_restaurant', args=(restaurant_id,)))

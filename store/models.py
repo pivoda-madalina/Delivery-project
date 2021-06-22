@@ -49,13 +49,14 @@ class Restaurant(models.Model):
         return 'closed'
 
 
-# class Review(models.Model):
-#     RATING = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5))
-#     rating = models.IntegerField(choices=RATING)
-#     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
-#
-#     def __str__(self):
-#         return f"{self.rating}"
+class Review(models.Model):
+    RATING = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5))
+    rating = models.IntegerField(choices=RATING)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.rating}"
 
 
 class Product(models.Model):
