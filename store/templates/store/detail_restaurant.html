@@ -14,22 +14,11 @@
         </div>
     </div>
 
-
-
-
-{#    <div>#}
-{#        <span class="h1">{{ restaurant.name }}</span>#}
-{#        <span class="badge rounded-pill bg-secondary">Cost of delivery: {{ restaurant.cost_of_delivery }} lei</span>#}
-{#        <span class="badge rounded-pill bg-secondary">Rating: {{ restaurant.rating }}</span>#}
-{#    </div>#}
-
-
     {% for c in restaurant.categories.all %}
         <div class="shadow-lg p-3 mb-5 bg-body rounded" style="text-align: center; font-size: larger">
             <a href="{% url 'store:product_list' restaurant.id c.id %}">{{ c.name }}</a>
         </div>
     {% endfor %}
-
 
     {% if user.user_type == 'Restaurant' %}
         <div style="text-align: center">

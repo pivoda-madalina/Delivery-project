@@ -17,11 +17,7 @@ class Restaurant(models.Model):
     OPEN = 1
     CLOSED = 2
 
-    OPENING_STATUS = (
-        (OPEN, 'open'),
-        (CLOSED, 'closed'),
-    )
-
+    OPENING_STATUS = ((OPEN, 'open'), (CLOSED, 'closed'),)
     RATING = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5))
 
     name = models.CharField(max_length=50, unique=True)
@@ -49,16 +45,6 @@ class Restaurant(models.Model):
         return 'closed'
 
 
-class Review(models.Model):
-    RATING = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5))
-    rating = models.IntegerField(choices=RATING)
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.rating}"
-
-
 class Product(models.Model):
     name = models.CharField(max_length=50, unique=True)
     description = models.CharField(max_length=500)
@@ -73,3 +59,13 @@ class Product(models.Model):
 
     def __str__(self):
         return f"{self.name}, {self.price}, category: {self.category}, {self.restaurant}"
+
+
+class Review(models.Model):
+    RATING = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5))
+    rating = models.IntegerField(choices=RATING)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.rating}"

@@ -55,6 +55,10 @@
                             <a class="nav-link" href="{% url 'order:shopping_cart' user.shoppingcart.id %}">Cart</a>
                         {% endif %}
                     </li>
+                    <li class="nav-item">
+                            <a class="nav-link">{{ user.username }}</a>
+                    </li>
+
                 </ul>
                 {% if user.user_type == 'Restaurant' %}
                     <a href="{% url 'store:add_restaurant' %}" style="padding-right: 10px;">

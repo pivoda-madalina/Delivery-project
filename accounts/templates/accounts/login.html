@@ -17,7 +17,12 @@
         <input type="submit" value="Login">
     <button>
              <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
-     </button>
+     </button><br><br>
+
+    <p>Forgot your password?</p>
+    <button>
+        <a class="nav-link" href="{% url 'reset_password' %}">Reset password</a>
+    </button>
     </form>
 
 {% endblock %}

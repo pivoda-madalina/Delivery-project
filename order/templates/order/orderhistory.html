@@ -37,16 +37,16 @@
                                 {% endif %}
                             </blockquote>
                         </figure>
-                    {% elif user.user_type == 'Client' %}
-                        <figure class="text-end">
-                            <blockquote class="blockquote">
-                                {% if placed_order.status == 3 %}
-                                    <a href="{% url 'store:add_review' %}">
-                                            <button>Add review</button></a>
-
-                                {% endif %}
-                            </blockquote>
-                        </figure>
+{#                    {% elif user.user_type == 'Client' %}#}
+{#                        <figure class="text-end">#}
+{#                            <blockquote class="blockquote">#}
+{#                                {% if placed_order.status == 3 %}#}
+{#                                    <a href="{% url 'store:add_review' %}">#}
+{#                                            <button>Add review</button></a>#}
+{##}
+{#                                {% endif %}#}
+{#                            </blockquote>#}
+{#                        </figure>#}
                     {% endif %}
 
                 </div>
@@ -68,9 +68,9 @@
             <a href="{% url 'order:clear_history' %}">
                 <button>Clear history</button>
             </a>
-            <a href="{% url 'store:add_review' restaurant_id %}">
-                <button>Add review</button>
-            </a>
+{#            <a href="{% url 'store:add_review' restaurant_id %}">#}
+{#                <button>Add review</button>#}
+{#            </a>#}
         </div>
     {% else %}
         <p class="p">You don't have any orders...</p>

@@ -6,9 +6,9 @@ from django.urls import reverse_lazy, reverse
 from .forms import ProductForm
 from datetime import datetime
 from .filters import RestaurantFilter
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.contrib.auth.decorators import permission_required
+# from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.mixins import PermissionRequiredMixin
+# from django.contrib.auth.decorators import permission_required
 
 
 def index(request):
@@ -111,27 +111,6 @@ class ProductList(ListView):
         return context
 
 
-def show_products(request, restaurant_id, category_id):
-    category = Category.objects.get(pk=category_id)
-    restaurant = Restaurant.objects.get(pk=restaurant_id)
-    context = {'products': Product.objects.filter(category=category, restaurant__in=[restaurant]),
-               'category_id': category_id,
-               'restaurant_id': restaurant_id}
-    return render(request, 'store/product_list.html', context)
-
-
-def add_product(request, restaurant_id, category_id):
-    category = Category.objects.get(pk=category_id)
-    restaurant = Restaurant.objects.get(pk=restaurant_id)
-    if request.method == 'GET':
-        return render(request, 'store/create_product.html', context={'form': ProductForm()})
-    else:
-        product = Product(price=request.POST.get('price'), name=request.POST.get('name'),
-                          description=request.POST.get('description'), category=category, restaurant=restaurant)
-        product.save()
-        return HttpResponseRedirect(reverse('store:product_list', args=(restaurant_id, category_id)))
-
-
 class AddProduct(CreateView):
     model = Product
     template_name = 'store/add_product.html'
@@ -150,19 +129,6 @@ class UpdateProduct(UpdateView):
     def get_success_url(self):
         return reverse('store:product_list', args=(self.kwargs.get('restaurant_id'),
                                                    self.kwargs.get('category_id')))
-
-
-def update_product(request, restaurant_id, category_id, product_id):
-    product = Product.objects.get(pk=product_id)
-    if request.method == 'GET':
-        return render(request, 'store/update_product.html', context={'form': ProductForm()})
-    else:
-        product.price = request.POST.get('price')
-        product.name = request.POST.get('name')
-        product.description = request.POST.get('description')
-        product.picture = request.POST.get('picture')
-        product.save()
-        return HttpResponseRedirect(reverse('store:product_list', args=(restaurant_id, category_id)))
 
 
 class DeleteProduct(DeleteView):

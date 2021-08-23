@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import index, RestaurantList, DetailRestaurant, AddRestaurant, UpdateRestaurant, DeleteRestaurant, \
-    AddCategory, show_products, AddProduct, add_category_for_restaurant, add_product, UpdateProduct, update_product, \
+    AddCategory, AddProduct, add_category_for_restaurant, UpdateProduct, \
     DeleteProduct, ProductList, search_restaurant, about_page, AddReview
 
 app_name = 'store'
@@ -22,5 +22,5 @@ urlpatterns = [
          DeleteProduct.as_view(), name='delete_product'),
     path('search_restaurant', search_restaurant, name='search_restaurant'),
     path('about_us', about_page, name='about'),
-    path('add_review', AddReview.as_view(), name='add_review'),
+    # path('add_review', AddReview.as_view(), name='add_review'),
 ]
